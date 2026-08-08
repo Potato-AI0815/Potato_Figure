@@ -1,0 +1,4 @@
+# Generated outputs from the worked example
+examples/example_output/
+# macOS
+.DS_Store

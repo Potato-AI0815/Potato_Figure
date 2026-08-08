@@ -1,0 +1,31 @@
+name: Potato_Figure
+version: 0.1.1-alpha
+release_status: pre-release
+description: >
+  Publication-grade scientific figure skill merging three rule sets:
+  (1) journal-level figure contracts (core conclusion, evidence chain, archetype,
+  exclusive backend, export contract), (2) manuscript main-figure rules
+  (compress whitespace, unified bar grammar, evidence-driven narrative,
+  design-data adjacency), and (3) dissertation-grade unified rules
+  (semantic color contract, physical size/font/linewidth contract, quantitative
+  figure grammar, IHC/IVIS/WB special rules, admission vs internal-audit dual track).
+  Use for creating, revising, auditing, or QA-ing figures for papers, theses,
+  grants, or supplementary materials.
+default_backend: r
+supported_backends: [r]
+python_support: policy-guided / experimental (rules in SKILL.md; no Python assets yet)
+assets:
+  theme: examples/potato_theme.R
+  example: examples/example_usage.R
+  validate: scripts/validate_figure.R
+  qa_size: scripts/qa_physical_size.R
+qa_contract:
+  - figure contract five elements written before code
+  - statistical unit correct (patient/animal/independent experiment; no pseudo-replication)
+  - n and FDR annotated; no nominal-P-only claims
+  - colors from semantic contract only (generic profile; project-specific via profiles/)
+  - default profile 183/89 mm physical sizes; verify journal guide when target specified
+  - no invalid whitespace; unified bar grammar; all raw points retained
+  - source data per panel; negative results retained
+  - four-format export (PDF/SVG/PNG/TIFF600) + manifest + QA record
+license: MIT
