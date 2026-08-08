@@ -14,7 +14,7 @@ A publication-grade scientific figure skill that merges three proven rule sets:
 > "beautify" plots; it turns scientific evidence into a submittable, traceable,
 > auditable figure deliverable.
 
-> ⚠️ **v0.1.3-alpha (Pre-release)**
+> ⚠️ **v0.1.5-alpha (Pre-release)**
 > - R backend: supported (worked example verified end-to-end)
 > - Python: experimental (policy-level rules only; no Python assets yet)
 > - Journal-specific sizes: verify the target journal's official guide before submission

@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## [0.1.5-alpha] - 2026-08-08
+
+### Changed
+
+- **Multiplicity 规则科学化**：不再靠检验名称（Wilcoxon/Cox/ANOVA 等）自动
+  断言"必须校正"——预指定两组比较不需要 multiplicity adjustment。
+  改为 manifest 三字段驱动：`multiplicity_applicable`(yes/no) +
+  `multiplicity_method` + `hypothesis_family`；
+  yes 缺方法 → FAIL；no → PASS；字段缺失时仅对明显多重比较语境
+  （genome-wide/pairwise/两两比较等）提示"请确认"，不制造假阳性。
+- example manifest 新增三字段示范（预指定比较不校正 + 全基因组 BH-FDR）。
+- README/README_EN 第一屏版本：v0.1.3 → v0.1.5。
+
+### Verified
+
+- 字段声明版（example）：10 rules 全 PASS
+- 预指定两组 Wilcoxon（无字段、无多重语境）：multiplicity 不误报
+- genome-wide/pairwise 语境（无字段）：提示"请确认"而非"必须校正"
+
 ## [0.1.4-alpha] - 2026-08-08
 
 ### Added

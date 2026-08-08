@@ -13,7 +13,7 @@
 > Potato_Figure 不负责把图"变漂亮"，它负责把科研证据规范地变成
 > 一套可提交、可追溯、可审计的 Figure deliverable。
 
-> ⚠️ **v0.1.3-alpha（Pre-release）**
+> ⚠️ **v0.1.5-alpha（Pre-release）**
 > - R backend：supported（示例全流程实测通过）
 > - Python：experimental（暂无 Python 资产，仅规则层面）
 > - journal-specific 尺寸：投稿前必须核对目标期刊官方指南

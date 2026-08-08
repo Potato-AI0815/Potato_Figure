@@ -273,10 +273,15 @@ Rscript scripts/audit_figure.R <figure_dir> --json    # JSON（供 agent/CI 消�
 | statistical_unit | **伪重复审计**：cell/view/视野/ROI/切片 ≠ 独立 n | 把技术重复当 n |
 | n | 非空、非 NA 占位 | 用模拟数据占位 |
 | statistical_test | 检验名称已声明 | 只写 "t-test" 无细节 |
-| multiplicity | **多重校正方法检查**：多组/多重比较（ANOVA/Kruskal/Wilcoxon/logistic/Cox 等）须声明 BH/FDR/Holm/Bonferroni | Wilcoxon 却不写 FDR |
+| multiplicity | **多重性（字段驱动，不靠检验名断言）**：manifest 新增三字段 `multiplicity_applicable`(yes/no) + `multiplicity_method` + `hypothesis_family`；yes 缺方法 → FAIL；no → PASS；无字段时仅对 genome-wide/pairwise/多重比较 等语境提示"请确认" | 全基因组分析漏 FDR；或误报预指定单比较 |
 | source_data | 每 panel TSV 存在 | 只给图不给数据 |
 | export | PDF/SVG/TIFF/PNG 四格式 | 只有 PNG |
 | output | 拼版图感知：共享输出文件是否合法 | 独立图被同名覆盖 |
+
+> **多重性设计原则**：不靠检验名称（Wilcoxon/Cox/ANOVA 等）自动断言"必须
+> 校正"——预先指定的两组比较不需要 multiplicity adjustment。由 manifest
+> 显式字段声明为准；字段缺失时仅对明显多重比较语境（genome-wide/pairwise/
+> 两两比较等）提示确认，不制造"看起来很专业的错误"。
 
 > **能力边界**：audit 审计的是交付目录的结构与元数据（manifest/source data/
 > 导出格式），**不**读取 PNG/PDF 图像像素内容（图像内错误如彩虹色、隐藏

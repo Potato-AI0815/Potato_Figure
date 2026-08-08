@@ -70,31 +70,70 @@ if (exists("mf")) {
     add("n", "PASS", "所有 panel 已标注 n")
   }
 
-  ## ---- 4. 统计检验与 FDR / 多重校正 ----
+  ## ---- 4. 统计检验与多重性（multiplicity）----
+  # 设计原则：不靠检验名称自动断言"必须校正"（预指定两组 Wilcoxon 不需要 FDR）。
+  # 优先级：manifest 显式字段 > 关键词提示确认。
+  #   字段（推荐）：multiplicity_applicable (yes/no) + multiplicity_method + hypothesis_family
   no_test <- is.na(mf$statistical_test) | mf$statistical_test == ""
   if (any(no_test)) {
     add("statistical_test", "WARNING",
         sprintf("%d 个 panel 未声明统计检验", sum(no_test)),
-        "填写检验名称（含配对/非配对、多重校正方法）")
+        "填写检验名称（含配对/非配对）")
   } else {
     add("statistical_test", "PASS", "所有 panel 已声明统计检验")
-    # 多重校正方法检查：检验已声明但缺校正方法时提示（不 FAIL，避免过度判定）
-    correction_kw <- c("BH", "FDR", "Holm", "Bonferroni", "bonferroni", "holm",
-                       "Benjamini", "benjamini", "q-value", "qvalue", "padj",
-                       "adjusted", "multiple testing", "multicomp", "Tukey", "tukey")
-    multi_test_kw <- c("ANOVA", "anova", "Kruskal", "kruskal", "Wilcoxon", "wilcoxon",
-                       "Mann", "mann", "logistic", "Cox", "cox", "mixed", "Mixed",
-                       "linear model", "LME", "paired", "pairwise")
+  }
+
+  # 4.1 显式字段驱动（manifest 新增三字段）
+  has_mapp <- "multiplicity_applicable" %in% names(mf)
+  has_mmeth <- "multiplicity_method" %in% names(mf)
+  if (has_mapp) {
     for (i in seq_len(nrow(mf))) {
-      tt <- as.character(mf$statistical_test[i])
-      if (is.na(tt) || tt == "") next
-      has_corr <- any(vapply(correction_kw, function(k) grepl(k, tt, fixed = TRUE), logical(1)))
-      has_multi <- any(vapply(multi_test_kw, function(k) grepl(k, tt, fixed = TRUE), logical(1)))
-      if (has_multi && !has_corr) {
+      mapp <- tolower(trimws(as.character(mf$multiplicity_applicable[i])))
+      if (mapp == "yes") {
+        meth <- if (has_mmeth) trimws(as.character(mf$multiplicity_method[i])) else ""
+        if (is.na(meth) || meth == "" || meth == "NA") {
+          add("multiplicity", "FAIL",
+              sprintf("panel %s：声明 multiplicity_applicable=yes 但未提供 multiplicity_method",
+                      mf$panel[i]),
+              "填写校正方法（BH-FDR/Holm/Bonferroni 等）或改为 no（需在 hypothesis_family 说明理由）")
+        } else {
+          add("multiplicity", "PASS",
+              sprintf("panel %s：多重校正方法已声明（%s）", mf$panel[i], meth))
+        }
+      } else if (mapp == "no") {
+        add("multiplicity", "PASS",
+            sprintf("panel %s：声明不适用多重校正（hypothesis_family=%s）",
+                    mf$panel[i],
+                    if ("hypothesis_family" %in% names(mf)) mf$hypothesis_family[i] else "unspecified"))
+      } else if (is.na(mapp) || mapp == "") {
         add("multiplicity", "WARNING",
-            sprintf("panel %s：检验 '%s' 涉及多组/多重比较，但未声明校正方法（BH/FDR/Holm/Bonferroni）",
+            sprintf("panel %s：multiplicity_applicable 未填写", mf$panel[i]),
+            "请确认该 panel 是否涉及多重比较；如适用请声明校正方法")
+      } else {
+        add("multiplicity", "WARNING",
+            sprintf("panel %s：multiplicity_applicable 取值 '%s' 无法识别（应为 yes/no）",
+                    mf$panel[i], mf$multiplicity_applicable[i]))
+      }
+    }
+  } else {
+    # 4.2 无显式字段时的关键词提示（只提示确认，不自动断言）
+    # 触发词限定为真正暗示多重比较的语境；单检验名称（Wilcoxon/Cox/ANOVA）
+    # 不再单独触发——预指定两组比较不需要校正。
+    multi_hint <- c("genome-wide", "genome wide", "all tested", "many comparison",
+                    "pairwise", "post-hoc", "post hoc", "multiple comparison",
+                    "multiple testing", "all genes", "全基因组", "两两比较",
+                    "多重比较", "多组")
+    for (i in seq_len(nrow(mf))) {
+      tt <- paste(as.character(mf$statistical_test[i]),
+                  if ("hypothesis_family" %in% names(mf)) as.character(mf$hypothesis_family[i]) else "",
+                  collapse = " ")
+      if (is.na(tt) || tt == "") next
+      hit <- any(vapply(multi_hint, function(k) grepl(k, tt, fixed = TRUE), logical(1)))
+      if (hit) {
+        add("multiplicity", "WARNING",
+            sprintf("panel %s：检测到多重比较语境（%s），请确认是否需要 multiplicity adjustment；如需要请声明方法",
                     mf$panel[i], tt),
-            "多组比较/全基因组水平必须注明多重校正方法；星号不能替代精确 P 与 FDR")
+            "建议在 manifest 增加 multiplicity_applicable / multiplicity_method / hypothesis_family 三字段明确声明")
       }
     }
   }

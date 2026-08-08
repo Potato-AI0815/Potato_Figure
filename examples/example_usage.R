@@ -67,10 +67,16 @@ save_fig(fig, "example_output/example_figure", 183, 140)
 write.table(d, "example_output/panel1_data.tsv", sep = "\t", row.names = FALSE, quote = FALSE)
 write.table(eff, "example_output/panel2_data.tsv", sep = "\t", row.names = FALSE, quote = FALSE)
 write.table(hm, "example_output/panel3_data.tsv", sep = "\t", row.names = FALSE, quote = FALSE)
-write.table(data.frame(panel = c("1", "2", "3"), script = "example_usage.R",
+# manifest 含统计合同 + 多重性三字段（multiplicity_applicable / multiplicity_method / hypothesis_family）
+write.table(data.frame(
+  panel = c("1", "2", "3"), script = "example_usage.R",
   source_data = c("panel1_data.tsv", "panel2_data.tsv", "panel3_data.tsv"),
   statistical_unit = "patient", n = n, transformation = "raw",
-  statistical_test = "Wilcoxon (BH-FDR) / logistic (BH-FDR)", output_file = "example_figure.pdf"),
+  statistical_test = c("Wilcoxon paired", "logistic (BH-FDR)", "paired t-test"),
+  multiplicity_applicable = c("no", "yes", "no"),
+  multiplicity_method = c(NA, "BH-FDR", NA),
+  hypothesis_family = c("primary_prespecified_comparison", "all_tested_regions", "prespecified_paired"),
+  output_file = "example_figure.pdf"),
   "example_output/figure_manifest.tsv", sep = "\t", row.names = FALSE, quote = FALSE)
 
 ## ---- QA ----
