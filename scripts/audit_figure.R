@@ -1,7 +1,11 @@
 # audit_figure.R — Potato_Figure 错误审计（Figure Audit）
-# 输入一张图（或其交付目录 + figure_manifest.tsv + source data），
+# 审计对象：标准化 Figure 交付目录（figure_manifest.tsv + source data + 导出文件），
 # 输出结构化错误报告：每条规则 = PASS / WARNING / FAIL + 错误说明 + 修改建议。
-# 这是 Potato_Figure 与普通绘图主题的核心差异：不仅画对，还能诊断错在哪。
+#
+# 能力边界（重要）：本脚本审计的是"交付物结构与元数据"——
+#   statistical_unit / n / statistical_test / source_data / 导出格式 / panel-output 关系；
+# 它【不】读取 PNG/PDF 图像像素内容（不识别图中是否有彩虹色、是否隐藏原始点）。
+# 图像内容层面的检查（artefact inspector）属于 v0.2 方向。
 #
 # 用法: Rscript audit_figure.R <figure_dir> [--json]
 #   默认输出人类可读报告；--json 输出结构化 JSON（供 agent/CI 消费）。
@@ -66,7 +70,7 @@ if (exists("mf")) {
     add("n", "PASS", "所有 panel 已标注 n")
   }
 
-  ## ---- 4. 统计检验与 FDR ----
+  ## ---- 4. 统计检验与 FDR / 多重校正 ----
   no_test <- is.na(mf$statistical_test) | mf$statistical_test == ""
   if (any(no_test)) {
     add("statistical_test", "WARNING",
@@ -74,6 +78,25 @@ if (exists("mf")) {
         "填写检验名称（含配对/非配对、多重校正方法）")
   } else {
     add("statistical_test", "PASS", "所有 panel 已声明统计检验")
+    # 多重校正方法检查：检验已声明但缺校正方法时提示（不 FAIL，避免过度判定）
+    correction_kw <- c("BH", "FDR", "Holm", "Bonferroni", "bonferroni", "holm",
+                       "Benjamini", "benjamini", "q-value", "qvalue", "padj",
+                       "adjusted", "multiple testing", "multicomp", "Tukey", "tukey")
+    multi_test_kw <- c("ANOVA", "anova", "Kruskal", "kruskal", "Wilcoxon", "wilcoxon",
+                       "Mann", "mann", "logistic", "Cox", "cox", "mixed", "Mixed",
+                       "linear model", "LME", "paired", "pairwise")
+    for (i in seq_len(nrow(mf))) {
+      tt <- as.character(mf$statistical_test[i])
+      if (is.na(tt) || tt == "") next
+      has_corr <- any(vapply(correction_kw, function(k) grepl(k, tt, fixed = TRUE), logical(1)))
+      has_multi <- any(vapply(multi_test_kw, function(k) grepl(k, tt, fixed = TRUE), logical(1)))
+      if (has_multi && !has_corr) {
+        add("multiplicity", "WARNING",
+            sprintf("panel %s：检验 '%s' 涉及多组/多重比较，但未声明校正方法（BH/FDR/Holm/Bonferroni）",
+                    mf$panel[i], tt),
+            "多组比较/全基因组水平必须注明多重校正方法；星号不能替代精确 P 与 FDR")
+      }
+    }
   }
 
   ## ---- 5. Source Data 存在性 ----

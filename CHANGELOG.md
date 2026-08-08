@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## [0.1.4-alpha] - 2026-08-08
+
+### Added
+
+- **多重校正方法检查**：audit_figure.R 新增 multiplicity 规则——多组/多重
+  比较检验（ANOVA/Kruskal/Wilcoxon/logistic/Cox/paired 等）必须声明
+  BH/FDR/Holm/Bonferroni 校正方法，缺失时输出 WARNING + 建议。
+  example manifest 已补示范正确写法（"Wilcoxon (BH-FDR)"）。
+- **CI 增加 --json 模式验证**：audit_figure.R --json 输出经 python 解析
+  校验，确认 JSON 模式可用且结构稳定。
+
+### Fixed
+
+- README/README_EN 第一屏版本残留：v0.1.1-alpha → v0.1.3-alpha。
+- 仓库 description 版本号更新。
+- audit_figure.R 头部注释明确能力边界：审计对象是交付目录的结构与元数据，
+  不读取 PNG/PDF 图像像素内容（图像级检查属 v0.2 artefact inspector）。
+- SKILL.md §9.5 规则表补充 multiplicity 规则 + 能力边界说明。
+
 ## [0.1.3-alpha] - 2026-08-08
 
 ### Added

@@ -272,10 +272,15 @@ Rscript scripts/audit_figure.R <figure_dir> --json    # JSON（供 agent/CI 消�
 | manifest | 8 列齐全、逐 panel 一行 | 缺列、缺 panel |
 | statistical_unit | **伪重复审计**：cell/view/视野/ROI/切片 ≠ 独立 n | 把技术重复当 n |
 | n | 非空、非 NA 占位 | 用模拟数据占位 |
-| statistical_test | 检验名称已声明（含校正方法） | 只写 "t-test" 无 FDR |
+| statistical_test | 检验名称已声明 | 只写 "t-test" 无细节 |
+| multiplicity | **多重校正方法检查**：多组/多重比较（ANOVA/Kruskal/Wilcoxon/logistic/Cox 等）须声明 BH/FDR/Holm/Bonferroni | Wilcoxon 却不写 FDR |
 | source_data | 每 panel TSV 存在 | 只给图不给数据 |
 | export | PDF/SVG/TIFF/PNG 四格式 | 只有 PNG |
 | output | 拼版图感知：共享输出文件是否合法 | 独立图被同名覆盖 |
+
+> **能力边界**：audit 审计的是交付目录的结构与元数据（manifest/source data/
+> 导出格式），**不**读取 PNG/PDF 图像像素内容（图像内错误如彩虹色、隐藏
+> 原始点由 §9.5 之外的人工审查或 v0.2 artefact inspector 负责）。
 
 **审计失败时**：报告每项的错误位置与修复建议，`--json` 输出供
 agent 自动读取后按建议修改；修改后重跑审计直至 PASS。

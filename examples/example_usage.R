@@ -70,7 +70,7 @@ write.table(hm, "example_output/panel3_data.tsv", sep = "\t", row.names = FALSE,
 write.table(data.frame(panel = c("1", "2", "3"), script = "example_usage.R",
   source_data = c("panel1_data.tsv", "panel2_data.tsv", "panel3_data.tsv"),
   statistical_unit = "patient", n = n, transformation = "raw",
-  statistical_test = "Wilcoxon / logistic", output_file = "example_figure.pdf"),
+  statistical_test = "Wilcoxon (BH-FDR) / logistic (BH-FDR)", output_file = "example_figure.pdf"),
   "example_output/figure_manifest.tsv", sep = "\t", row.names = FALSE, quote = FALSE)
 
 ## ---- QA ----

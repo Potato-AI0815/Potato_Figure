@@ -82,3 +82,9 @@ jobs:
       - name: Run figure audit (audit_figure.R) — error diagnosis
         working-directory: scripts
         run: Rscript audit_figure.R ../examples/example_output
+
+      - name: Verify audit --json mode parses
+        working-directory: scripts
+        run: |
+          Rscript audit_figure.R ../examples/example_output --json > audit.json
+          python -c "import json,sys; d=json.load(open('audit.json',encoding='utf-8')); assert isinstance(d, list) and len(d) > 0 and all(k in d[0] for k in ('rule','status','detail')), 'audit JSON invalid'; print('audit JSON OK:', len(d), 'rules')"
