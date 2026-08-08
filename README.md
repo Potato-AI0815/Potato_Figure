@@ -2,6 +2,10 @@
 
 发表级科研做图统一技能（Publication-Grade Scientific Figure Skill）。
 
+![CI](https://img.shields.io/github/actions/workflow/status/Potato-AI0815/Potato_Figure/r-smoke-test.yml)
+![License](https://img.shields.io/github/license/Potato-AI0815/Potato_Figure)
+![Release](https://img.shields.io/github/v/release/Potato-AI0815/Potato_Figure?include_prereleases)
+
 > **Potato_Figure is not just a plotting theme.**
 > It turns scientific evidence into publication-ready, traceable figure deliverables.
 >
