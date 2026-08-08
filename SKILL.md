@@ -252,6 +252,35 @@ profiles/
 - 内部审计表：被排除/未上主图结果及其原因
 - `figure_manifest.tsv`：panel | script | source_data | statistical unit | n | transformation | statistical test | output file
 
+## 9.5 错误审计（Figure Audit —— 诊断"错在哪"）
+
+> 与普通绘图主题的核心差异：不仅"画对"，还能"报告之前的图错在哪"。
+
+**输入**：一张图的交付目录（`figure_manifest.tsv` + source data + 导出文件）。
+
+**命令**：
+
+```bash
+Rscript scripts/audit_figure.R <figure_dir>           # 人类可读报告
+Rscript scripts/audit_figure.R <figure_dir> --json    # JSON（供 agent/CI 消费）
+```
+
+**审计规则**（逐条输出 PASS / WARNING / FAIL + 错误说明 + 修改建议）：
+
+| 规则 | 检查什么 | 典型错误 |
+|---|---|---|
+| manifest | 8 列齐全、逐 panel 一行 | 缺列、缺 panel |
+| statistical_unit | **伪重复审计**：cell/view/视野/ROI/切片 ≠ 独立 n | 把技术重复当 n |
+| n | 非空、非 NA 占位 | 用模拟数据占位 |
+| statistical_test | 检验名称已声明（含校正方法） | 只写 "t-test" 无 FDR |
+| source_data | 每 panel TSV 存在 | 只给图不给数据 |
+| export | PDF/SVG/TIFF/PNG 四格式 | 只有 PNG |
+| output | 拼版图感知：共享输出文件是否合法 | 独立图被同名覆盖 |
+
+**审计失败时**：报告每项的错误位置与修复建议，`--json` 输出供
+agent 自动读取后按建议修改；修改后重跑审计直至 PASS。
+拼版图（多 panel 合成一个输出）自动识别为合法，不误报。
+
 ## 10. QA 清单（交付前逐项）
 
 - [ ] Figure contract 五要素已写（核心结论/证据链/archetype/backend/export）

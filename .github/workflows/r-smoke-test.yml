@@ -78,3 +78,7 @@ jobs:
       - name: Run physical-size QA (qa_physical_size.R)
         working-directory: scripts
         run: Rscript qa_physical_size.R ../examples/example_output
+
+      - name: Run figure audit (audit_figure.R) — error diagnosis
+        working-directory: scripts
+        run: Rscript audit_figure.R ../examples/example_output

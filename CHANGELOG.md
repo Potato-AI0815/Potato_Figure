@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## [0.1.3-alpha] - 2026-08-08
+
+### Added
+
+- **Figure Audit（错误审计）**：`scripts/audit_figure.R` —— 输入交付目录，
+  逐条输出 PASS/WARNING/FAIL + 错误说明 + 修改建议；审计规则：
+  统计单位伪重复（cell/view/视野/ROI/切片 ≠ 独立 n）、n 完整性、检验声明、
+  Source Data 存在性、四格式导出、拼版图感知的 output 检查。
+  支持 `--json` 输出供 agent/CI 消费。
+- **错误标注版 Before 图**：`examples/make_annotated_before.R` 生成
+  `gallery/annotated_before.png`，在默认 ggplot 上标注 4 处典型错误
+  （隐藏原始点、彩虹色板、无 FDR 标注、无 Source Data）。
+- README Gallery 升级：明确"Before 错在哪"（4 处错误逐条对照），
+  不再只是"丑 vs 好看"，而是"错 vs 对"。
+
+### Changed
+
+- SKILL.md 新增 §9.5 错误审计章节（Figure Audit 用法与规则表）。
+- CI 增加 audit_figure.R 步骤。
+- manifest.yaml 增加 audit 资产声明。
+
+### Verified
+
+- 好图审计：7 条规则全 PASS（拼版图正确识别为合法）。
+- 坏图审计：准确抓出伪重复 / n=NA / source data 缺失 / 导出缺失。
+
 ## [0.1.1-alpha] - 2026-08-08
 
 ### Changed

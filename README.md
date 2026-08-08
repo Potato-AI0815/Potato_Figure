@@ -23,17 +23,23 @@
 
 ## Gallery（Before / After）
 
-| 默认 ggplot（无合同） | Potato_Figure（合同化） |
-|---|---|
-| ![before](examples/gallery/before_figure.png) | ![after](examples/gallery/after_figure.png) |
+**Before 错在哪（错误标注版）**：默认 ggplot 看起来"正常"，但藏着一堆会被审稿人抓住的错误：
 
-| 维度 | Before | After |
+| 错误标注图 | Potato_Figure 合同化结果 |
+|---|---|
+| ![annotated-before](examples/gallery/annotated_before.png) | ![after](examples/gallery/after_figure.png) |
+
+| 维度 | Before（4 处典型错误） | After |
 |---|---|---|
-| 统计单位 | 无约束 | 患者/动物/独立实验才当 n，禁伪重复 |
-| 原始数据 | 箱线图隐藏原始点 | 全部独立点保留 |
-| 颜色 | 随意红蓝、彩虹热图 | 语义化颜色合同，跨图冻结 |
-| 统计标注 | 无 FDR / 无 n | 每 panel 统计合同可追溯 |
-| 交付 | 只有一张 PNG | PDF/SVG/TIFF600/PNG + Source Data + manifest + QA |
+| 统计单位 | ❌ 未声明；细胞/视野可被误当 n | ✅ 患者/动物/独立实验才当 n，禁伪重复 |
+| 原始数据 | ❌ 箱线图隐藏全部原始点 | ✅ 全部独立点保留 |
+| 颜色 | ❌ 随意红蓝、彩虹热图（色觉不友好、0 点无语义） | ✅ 语义化颜色合同，跨图冻结 |
+| 统计标注 | ❌ 森林图无 FDR / 无 n | ✅ 每 panel 统计合同可追溯 |
+| 可追溯性 | ❌ 无 Source Data / manifest / QA | ✅ PDF/SVG/TIFF600/PNG + Source Data + manifest + QA |
+
+> **不只是"丑 vs 好看"——是"错 vs 对"。** Potato_Figure 的核心是错误诊断：
+> `scripts/audit_figure.R` 会逐条检查统计单位（伪重复）、n 完整性、检验声明、
+> Source Data、四格式导出，输出"错在哪 + 怎么改"的报告。
 
 ## 特性
 
@@ -88,10 +94,14 @@ Potato_Figure/
 ├── manifest.yaml             # 技能元数据
 ├── examples/
 │   ├── potato_theme.R        # 统一主题、颜色、导出、尺寸 QA 函数
-│   └── example_usage.R       # 完整工作示例
+│   ├── example_usage.R       # 完整工作示例
+│   ├── make_before_figure.R  # 生成 before（默认 ggplot）对照图
+│   ├── make_annotated_before.R # 生成"错在哪"标注版 before 图
+│   └── gallery/              # Before / After / 错误标注图
 └── scripts/
     ├── validate_figure.R     # 交付前静态预检
-    └── qa_physical_size.R    # PNG 物理尺寸实测
+    ├── qa_physical_size.R    # PNG 物理尺寸实测
+    └── audit_figure.R        # 错误审计：报告"错在哪 + 怎么改"
 ```
 
 ## 使用建议

@@ -1,5 +1,5 @@
 name: Potato_Figure
-version: 0.1.1-alpha
+version: 0.1.3-alpha
 release_status: pre-release
 description: >
   Publication-grade scientific figure skill merging three rule sets:
@@ -19,6 +19,7 @@ assets:
   example: examples/example_usage.R
   validate: scripts/validate_figure.R
   qa_size: scripts/qa_physical_size.R
+  audit: scripts/audit_figure.R
 qa_contract:
   - figure contract five elements written before code
   - statistical unit correct (patient/animal/independent experiment; no pseudo-replication)
