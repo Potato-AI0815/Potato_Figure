@@ -54,7 +54,7 @@
 克隆到任一 agent 的 skills 目录（以 opencode 为例）：
 
 ```bash
-git clone https://github.com/<your-org>/Potato_Figure.git \
+git clone https://github.com/Potato-AI0815/Potato_Figure.git \
   ~/.config/opencode/skills/Potato_Figure
 ```
 

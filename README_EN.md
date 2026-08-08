@@ -41,7 +41,7 @@ A publication-grade scientific figure skill that merges three proven rule sets:
 Clone into any agent's skills directory (opencode example):
 
 ```bash
-git clone https://github.com/<your-org>/Potato_Figure.git \
+git clone https://github.com/Potato-AI0815/Potato_Figure.git \
   ~/.config/opencode/skills/Potato_Figure
 ```
 
