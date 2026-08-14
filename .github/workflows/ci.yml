@@ -80,29 +80,8 @@ jobs:
             # shell-level python resolves, restoring normal resolution.
             export PYTHONPATH="$(python -c 'import numpy, os; print(os.path.dirname(os.path.dirname(numpy.__file__)))')"
             echo "PYTHONPATH=$PYTHONPATH"
-            echo "python: $(readlink -f "$(which python)")"
           fi
           Rscript scripts/run_release_validation.R .
-
-      - name: Raster environment diagnostics
-        if: always()
-        working-directory: potato-figure-audit
-        shell: bash
-        run: |
-          which -a python python3 || true
-          echo "PATH=$PATH"
-          python -c "import PIL, numpy; print('PIL', PIL.__version__, 'numpy', numpy.__version__)" 2>&1
-          echo "PROBE_EXIT=$?"
-          python scripts/raster_measure.py metrics tests/regression_three_tier/B_workflow/figure.png --ink-threshold 20 --panel-count 2 2>&1
-          echo "RASTER_EXIT=$?"
-          echo "=== R system2 passthrough ==="
-          Rscript --vanilla -e 'args <- c(shQuote("scripts/raster_measure.py"), "metrics", shQuote("tests/regression_three_tier/A_sloppy/figure.png"), "--ink-threshold", "20", "--panel-count", "1"); cmd <- paste(c(shQuote("python"), args), collapse = " "); cat("CMD:", cmd, "\n"); r <- system2("python", args, stdout = TRUE, stderr = TRUE); print(r); cat("EXIT:", attr(r, "status"), "\n")'
-          echo "=== python env inside R ==="
-          Rscript --vanilla -e 'cat("Sys.which python:", Sys.which("python"), "\n"); r <- system2("python", c("-c", shQuote("import sys; print(\"EXE\", sys.executable); print(\"PREFIX\", sys.prefix); print(\"SYS.PATH\", sys.path); import numpy; print(\"numpy OK\")")), stdout = TRUE, stderr = TRUE); print(r); cat("EXIT:", attr(r, "status"), "\n"); r2 <- system2("python", c("-c", shQuote("import sys; print(\"FLAGS\", sys.flags); import site; print(\"SITE\", site.getsitepackages()); print(\"USER\", site.ENABLE_USER_SITE)")), stdout = TRUE, stderr = TRUE); print(r2); cat("EXIT2:", attr(r2, "status"), "\n"); cat("PYTHONENV:", paste(grep(\"^PYTHON\", names(Sys.getenv()), value = TRUE), Sys.getenv(grep(\"^PYTHON\", names(Sys.getenv()), value = TRUE)), sep = \"=\", collapse = \" | \"), \"\n\")'
-          echo "=== python direct (bash) ==="
-          python -c "import sys; print('EXE', sys.executable); print('PREFIX', sys.prefix); print('SYS.PATH', sys.path); import numpy; print('numpy OK')"
-          echo "=== R system2 no-prequote passthrough ==="
-          Rscript --vanilla -e 'args <- c("scripts/raster_measure.py", "metrics", "tests/regression_three_tier/A_sloppy/figure.png", "--ink-threshold", "20", "--panel-count", "1"); cmd <- paste(c(shQuote("python"), args), collapse = " "); cat("CMD:", cmd, "\n"); r <- system2("python", args, stdout = TRUE, stderr = TRUE); print(r); cat("EXIT:", attr(r, "status"), "\n")'
 
       - name: Dump suite logs (diagnostic)
         if: always()

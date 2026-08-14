@@ -121,8 +121,8 @@ writeLines("{}", file.path(b4, "figure_audit.json"))
 writeLines("# report", file.path(b4, "figure_audit_report.md"))
 aa <- compute_audited_artifacts(b4)
 check("B4a binding covers inputs incl. subdir",
-      identical(sort(names(aa)),
-                c("figure.png", "figure_manifest.tsv", "source_data/raw.tsv")),
+      setequal(names(aa),
+               c("figure.png", "figure_manifest.tsv", "source_data/raw.tsv")),
       paste(names(aa), collapse = ","))
 check("B4b audit outputs excluded",
       !any(c("figure_audit.json", "figure_audit_report.md") %in% names(aa)))
@@ -163,10 +163,10 @@ if (!e2e_ok) {
         any(grepl("^source_data/", names(aa5))))
   check("B5f audit outputs excluded from binding",
         !any(c("figure_audit.json", "figure_audit_report.md") %in% names(aa5)))
-  ## 现场重算全部匹配（新鲜）
+  ## 现场重算全部匹配（新鲜）—— 路径按平台分隔符解析（Windows: \; POSIX: /）
   mismatch <- ""
   for (rel in names(aa5)) {
-    p <- file.path(proj, gsub("/", "\\", rel, fixed = TRUE))
+    p <- file.path(proj, rel)
     if (!file.exists(p) ||
         !identical(tolower(sha256_file(p)), tolower(aa5[[rel]]$sha256))) {
       mismatch <- rel; break
