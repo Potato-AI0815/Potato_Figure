@@ -70,7 +70,17 @@ jobs:
       - name: Run full release validation (11 suites)
         working-directory: potato-figure-audit
         shell: bash
-        run: Rscript scripts/run_release_validation.R .
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            # GitHub-hosted runner: r-lib/actions/setup-r prepends /opt/R/*/lib/R/lib
+            # to LD_LIBRARY_PATH, which shadows numpy's bundled BLAS and breaks
+            # `import numpy` in the raster subprocesses (exit 4). Typical user
+            # installs do not export R's lib dir globally, so restore that
+            # environment here. R itself keeps working via its own RPATH.
+            export LD_LIBRARY_PATH="$(echo "$LD_LIBRARY_PATH" | tr ':' '\n' | grep -v '^/opt/R/' | grep -v '^$' | paste -sd: -)"
+            echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+          fi
+          Rscript scripts/run_release_validation.R .
 
       - name: Raster environment diagnostics
         if: always()

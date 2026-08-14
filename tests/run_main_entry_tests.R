@@ -150,25 +150,31 @@ unlink(hostile_root, recursive = TRUE)
 ## 背景: Windows + 非 UTF-8 locale 下 R 无法构造含非 ASCII 字符的子进程命令行
 ## （system2 native-encoding 转换失败）; unicode 图像路径本身由
 ## run_raster_security_tests.R 的显式 unicode 路径用例覆盖。
-uni_root <- file.path(tempdir(), paste0("main entry 'hostile; dir_", intToUtf8(c(0x4E2D, 0x6587))))
-unlink(uni_root, recursive = TRUE)
-dir.create(uni_root, recursive = TRUE, showWarnings = FALSE)
-uni_ok <- file.copy(ready_dir, uni_root, recursive = TRUE)
-uni_dir <- file.path(uni_root, "ready_case")
-if (uni_ok && dir.exists(uni_dir)) {
-  launch <- tryCatch(shortPathName(uni_dir), error = function(e) "")
-  if (nzchar(launch) && dir.exists(launch)) {
-    m7u <- run_entry(launch, "PUBLICATION_READY")
-    check("M7u: unicode dir (via 8.3 alias) exit 0", m7u$exit == 0L, sprintf("exit=%s", m7u$exit))
-    check("M7u: unicode dir ready TRUE",
-          !is.null(m7u$json) && identical(m7u$json$publication_ready, TRUE))
+## 平台适配: 8.3 短路径别名仅存在于 Windows (NTFS); Linux/macOS 无此机制,
+## 该用例在此标记为 SKIP-PASS（非失败），Windows 上行为不变。
+if (.Platform$OS.type == "windows") {
+  uni_root <- file.path(tempdir(), paste0("main entry 'hostile; dir_", intToUtf8(c(0x4E2D, 0x6587))))
+  unlink(uni_root, recursive = TRUE)
+  dir.create(uni_root, recursive = TRUE, showWarnings = FALSE)
+  uni_ok <- file.copy(ready_dir, uni_root, recursive = TRUE)
+  uni_dir <- file.path(uni_root, "ready_case")
+  if (uni_ok && dir.exists(uni_dir)) {
+    launch <- tryCatch(shortPathName(uni_dir), error = function(e) "")
+    if (nzchar(launch) && dir.exists(launch)) {
+      m7u <- run_entry(launch, "PUBLICATION_READY")
+      check("M7u: unicode dir (via 8.3 alias) exit 0", m7u$exit == 0L, sprintf("exit=%s", m7u$exit))
+      check("M7u: unicode dir ready TRUE",
+            !is.null(m7u$json) && identical(m7u$json$publication_ready, TRUE))
+    } else {
+      check("M7u: 8.3 alias available", FALSE, "shortPathName unavailable on this volume")
+    }
   } else {
-    check("M7u: 8.3 alias available", FALSE, "shortPathName unavailable on this volume")
+    check("M7u: unicode fixture setup", FALSE, "copy failed")
   }
+  unlink(uni_root, recursive = TRUE)
 } else {
-  check("M7u: unicode fixture setup", FALSE, "copy failed")
+  check("M7u: 8.3 alias available", TRUE, "skipped on non-Windows (8.3 short paths are Windows-only)")
 }
-unlink(uni_root, recursive = TRUE)
 
 ## ---- M8: INCOMPLETE package → COMPLETE_DELIVERY 路由 + exit 2 ----
 m8 <- run_entry(file.path(three_tier, "B_workflow"), "PUBLICATION_READY")
