@@ -1,0 +1,91 @@
+name: Potato Figure execution + global-coherence validation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - "schemas/**"
+      - "profiles/**"
+      - "references/**"
+      - "*.tsv"
+      - "*.md"
+      - ".github/workflows/r1-execution-layer.yml"
+  pull_request:
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - "schemas/**"
+      - "profiles/**"
+      - "references/**"
+      - "*.tsv"
+      - "*.md"
+      - ".github/workflows/r1-execution-layer.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "release"
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache: always
+          extra-packages: |
+            any::jsonlite
+
+      - name: Static package contract validation
+        run: python scripts/static_validate.py .
+
+      - name: Generate synthetic execution fixtures
+        run: Rscript tests/generate_fixtures.R tests/generated
+
+      - name: Run frozen R1 integrity/delivery regressions
+        run: Rscript tests/run_tests.R .
+
+      - name: Run R4 global-coherence regressions
+        run: Rscript tests/run_r4_tests.R .
+
+      - name: Parse Scientific Audit JSON for PASS and expected FAIL
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          cases = {
+              "valid_complete_scientific.json": "PASS",
+              "pseudoreplication_cell_as_n_scientific.json": "FAIL",
+          }
+          root = Path("tests/results")
+          for name, expected in cases.items():
+              payload = json.loads((root / name).read_text(encoding="utf-8"))
+              assert payload["overall_status"] == expected, (name, payload)
+              assert payload["checks"], name
+          print("Scientific Audit JSON parse: PASS")
+          PY
+
+      - name: Parse R4 readiness JSON
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path("tests/results_r4")
+          valid = json.loads((root / "r4_valid_global.json").read_text())
+          open_change = json.loads((root / "r4_open_local_change.json").read_text())
+          profile = json.loads((root / "r4_profile_typography_revise.json").read_text())
+          assert valid["global_coherence_status"] == "PASS" and valid["publication_ready"] is True
+          assert open_change["global_coherence_status"] == "FAIL" and open_change["publication_ready"] is False
+          assert profile["global_coherence_status"] == "REVISE" and profile["publication_ready"] is False
+          print("R4 readiness JSON parse: PASS")
+          PY
+
+      - name: Confirm CI does not perform automatic aesthetic scoring
+        run: |
+          ! grep -R -E "automatic.*(beauty|aesthetic)|aesthetic.*score" scripts tests

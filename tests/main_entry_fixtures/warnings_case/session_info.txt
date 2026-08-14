@@ -1,0 +1,7 @@
+platform: Windows x64 (MINGW64)
+r_version: R 4.5.3
+rscript: Rscript --vanilla
+seed: 20260813
+data_provenance: synthetic fixtures (see DATA_PROVENANCE.md); no real patient data
+rendered_by: render_B.R
+notes: fixture for main-entry PUBLICATION_READY regression

@@ -1,32 +1,52 @@
-name: Potato_Figure
-version: 0.1.5-alpha
+name: potato-figure-audit
+display_name: Potato Figure Audit
+version: 0.4.3-alpha
+packaging_revision: R6.1
 release_status: pre-release
 description: >
-  Publication-grade scientific figure skill merging three rule sets:
-  (1) journal-level figure contracts (core conclusion, evidence chain, archetype,
-  exclusive backend, export contract), (2) manuscript main-figure rules
-  (compress whitespace, unified bar grammar, evidence-driven narrative,
-  design-data adjacency), and (3) dissertation-grade unified rules
-  (semantic color contract, physical size/font/linewidth contract, quantitative
-  figure grammar, IHC/IVIS/WB special rules, admission vs internal-audit dual track).
-  Use for creating, revising, auditing, or QA-ing figures for papers, theses,
-  grants, or supplementary materials.
-default_backend: r
-supported_backends: [r]
-python_support: policy-guided / experimental (rules in SKILL.md; no Python assets yet)
-assets:
-  theme: examples/potato_theme.R
-  example: examples/example_usage.R
-  validate: scripts/validate_figure.R
-  qa_size: scripts/qa_physical_size.R
-  audit: scripts/audit_figure.R
-qa_contract:
-  - figure contract five elements written before code
-  - statistical unit correct (patient/animal/independent experiment; no pseudo-replication)
-  - n and FDR annotated; no nominal-P-only claims
-  - colors from semantic contract only (generic profile; project-specific via profiles/)
-  - default profile 183/89 mm physical sizes; verify journal guide when target specified
-  - no invalid whitespace; unified bar grammar; all raw points retained
-  - source data per panel; negative results retained
-  - four-format export (PDF/SVG/PNG/TIFF600) + manifest + QA record
+  Independent scientific figure audit and integrity layer for biomedical
+  research. Covers statistical-unit integrity, claim-evidence alignment,
+  panel architecture, global coherence, visual QA, and reproducible
+  delivery. Audit only — does not generate, render, or redraw figures.
+  Works with any figure generator (R, Python, GraphPad Prism,
+  Nature-Figure, Illustrator, AI).
+positioning: independent_audit_layer
+generator_agnostic: true
+requires_nature: false
+audit_layers:
+  - input
+  - scientific_integrity
+  - statistical_consistency
+  - claim_evidence
+  - panel_architecture
+  - global_coherence
+  - visual_integrity
+  - color_system
+  - delivery_reproducibility
+  - publication_readiness
+severity: [BLOCKER, MAJOR, MINOR, INFO]
+entrypoint: scripts/audit_figure.R
+outputs:
+  - figure_audit_report.md
+  - figure_audit.json
+tests:
+  r1_regression: tests/run_tests.R
+  r4_regression: tests/run_r4_tests.R
+  audit_tests: tests/run_audit_tests.R
+  color_behavioral_tests: tests/run_color_system_tests.R
+  r6_gate_semantics_tests: tests/run_r6_tests.R
+  r6_real_regression: tests/run_r6_real_regression.R
+  warning_semantics_tests: tests/run_warning_semantics_tests.R
+  raster_security_tests: tests/run_raster_security_tests.R
+  main_entry_tests: tests/run_main_entry_tests.R
+  visual_correction_tests: tests/run_visual_correction_tests.R
+release_validation:
+  runner: scripts/run_release_validation.R
+  single_source_of_truth: validation/latest_validation.json
+  report_generator: scripts/generate_validation_report.R
+  generated_reports: [TEST_MATRIX.tsv, RUNTIME_VALIDATION_REPORT.md]
+legacy_helpers:
+  - themes/potato_theme_v02.R
+  - references/visual-art-direction.md
+  - references/layout-candidate-selection.md
 license: MIT

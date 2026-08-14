@@ -1,0 +1,23 @@
+profile_id: journal_final_template_v0.2
+profile_role: final_submission_override
+status: PROVISIONAL_UNTIL_OFFICIAL_GUIDE_VERIFIED
+required_inputs:
+  - target_journal
+  - article_type
+  - submission_stage
+  - official_guideline_url
+override_fields:
+  - final_width_mm
+  - maximum_height_mm
+  - body_font_pt
+  - panel_label_pt
+  - accepted_formats
+  - raster_dpi
+  - colour_space
+preserve:
+  - scientific_integrity_contract
+  - evidence_hierarchy
+  - semantic_colour_mapping
+  - panel_source_data
+  - provenance
+

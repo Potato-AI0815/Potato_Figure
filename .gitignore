@@ -1,4 +1,5 @@
-# Generated outputs from the worked example
-examples/example_output/
-# macOS
-.DS_Store
+tests/generated/
+tests/results/
+*.zip
+tests/audit_fixtures/*/figure_audit_report.md
+tests/audit_fixtures/*/figure_audit.json

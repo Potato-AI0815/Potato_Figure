@@ -1,0 +1,34 @@
+state_version: 1.0
+figure_id: Figure_1
+modality: generic
+assembly_mode: publication
+scientific.central_claim: Example claim stated at the biological-unit level
+scientific.statistical_unit: patient
+scientific.primary_contrast: condition_B_vs_condition_A
+narrative.reading_order: a,b,c
+narrative.hero_panel: b
+narrative.panel_tags: a,b,c
+panel.a.question: What context or landscape is present?
+panel.a.role: context
+panel.a.evidence_class: CONTEXT_OR_LANDSCAPE
+panel.a.unique_information: orientation
+panel.b.question: What is the primary biological-unit effect?
+panel.b.role: hero
+panel.b.evidence_class: SAMPLE_LEVEL_QUANTITATIVE
+panel.b.unique_information: primary_effect
+panel.c.question: What is the inferential status?
+panel.c.role: inference
+panel.c.evidence_class: INFERENTIAL
+panel.c.unique_information: effect_and_uncertainty
+visual.profile: potato-user-v1
+visual.body_pt: 9
+visual.axis_text_pt: 8.5
+visual.panel_tag_pt: 11
+visual.colour_architecture: coordinated_cool_warm_plus_structural_ink
+geometry.target_width_occupancy: 0.88
+geometry.target_height_occupancy: 0.82
+geometry.outer_margin_mm: 3.5
+geometry.panel_gap_mm: 3
+assembly.final_canvas: one_figure
+repair.change_log_file: local_change_log.tsv
+repair.last_change_id: none

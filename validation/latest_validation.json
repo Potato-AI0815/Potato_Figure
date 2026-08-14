@@ -1,0 +1,134 @@
+{
+  "schema_version": "V1",
+  "skill": "potato-figure-audit",
+  "version": "0.4.3-alpha",
+  "generated_at": "2026-08-14T13:17:48+0800",
+  "machine": "Windows 10 x64 x86-64",
+  "r_version": "4.6.1",
+  "suites": [
+    {
+      "name": "r1_regression",
+      "script": "tests/run_tests.R",
+      "exit_code": 0,
+      "checks_pass": 16,
+      "checks_total": 16,
+      "summary_line": "PASS: 16/16",
+      "status": "PASS",
+      "seconds": 43.7
+    },
+    {
+      "name": "r4_local",
+      "script": "tests/run_r4_tests.R",
+      "exit_code": 0,
+      "checks_pass": 4,
+      "checks_total": 4,
+      "summary_line": "PASS: 4/4",
+      "status": "PASS",
+      "seconds": 6.7
+    },
+    {
+      "name": "audit_core",
+      "script": "tests/run_audit_tests.R",
+      "exit_code": 0,
+      "checks_pass": 10,
+      "checks_total": 10,
+      "summary_line": "10/10 PASS",
+      "status": "PASS",
+      "seconds": 0.6
+    },
+    {
+      "name": "color_system",
+      "script": "tests/run_color_system_tests.R",
+      "exit_code": 0,
+      "checks_pass": 14,
+      "checks_total": 14,
+      "summary_line": "14/14 PASS",
+      "status": "PASS",
+      "seconds": 13.8
+    },
+    {
+      "name": "r6_gate_semantics",
+      "script": "tests/run_r6_tests.R",
+      "exit_code": 0,
+      "checks_pass": 24,
+      "checks_total": 24,
+      "summary_line": "PASS: 24  FAIL: 0",
+      "status": "PASS",
+      "seconds": 0.4
+    },
+    {
+      "name": "r6_real_regression",
+      "script": "tests/run_r6_real_regression.R",
+      "exit_code": 0,
+      "checks_pass": 19,
+      "checks_total": 19,
+      "summary_line": "PASS: 19  FAIL: 0",
+      "status": "PASS",
+      "seconds": 49.6
+    },
+    {
+      "name": "warning_semantics",
+      "script": "tests/run_warning_semantics_tests.R",
+      "exit_code": 0,
+      "checks_pass": 16,
+      "checks_total": 16,
+      "summary_line": "PASS: 16  FAIL: 0",
+      "status": "PASS",
+      "seconds": 0.4
+    },
+    {
+      "name": "raster_security",
+      "script": "tests/run_raster_security_tests.R",
+      "exit_code": 0,
+      "checks_pass": 7,
+      "checks_total": 7,
+      "summary_line": "7/7 PASS",
+      "status": "PASS",
+      "seconds": 7.6
+    },
+    {
+      "name": "main_entry",
+      "script": "tests/run_main_entry_tests.R",
+      "exit_code": 0,
+      "checks_pass": 34,
+      "checks_total": 34,
+      "summary_line": "PASS: 34  FAIL: 0",
+      "status": "PASS",
+      "seconds": 53.1
+    },
+    {
+      "name": "visual_correction",
+      "script": "tests/run_visual_correction_tests.R",
+      "exit_code": 0,
+      "checks_pass": 10,
+      "checks_total": 10,
+      "summary_line": "10/10 PASS",
+      "status": "PASS",
+      "seconds": 0.4
+    },
+    {
+      "name": "binding_serializer",
+      "script": "tests/run_binding_serializer_tests.R",
+      "exit_code": 0,
+      "checks_pass": 23,
+      "checks_total": 23,
+      "summary_line": "23/23 PASS",
+      "status": "PASS",
+      "seconds": 19.6
+    }
+  ],
+  "validator": {
+    "tool": "scripts/validate_skill_package.py",
+    "python": "python",
+    "exit_code": 0,
+    "status": "PASS",
+    "detail": "SKILL_ROOT = potato-figure-audit SKILL_NAME_DIRECTORY_MATCH = PASS PACKAGE_COMPLIANCE = PASS ZIP_PATH_SCAN = NOT_EVALUATED (no archive supplied) PACKAGE_COMPLIANCE: PASS"
+  },
+  "totals": {
+    "suites": 11,
+    "suites_pass": 11,
+    "checks_pass": 177,
+    "checks_total": 177
+  },
+  "overall": "PASS"
+}

@@ -1,0 +1,16 @@
+# Statistical metadata for C version (nature-figure only workflow) — SYNTHETIC data
+analysis_version: 2.0-synthetic
+analysis_software: R survdiff / coxph
+n_samples: 773
+statistical_unit: sample
+# 12 survival tests (log-rank) were run across the 12 candidate genes at the SAMPLE level.
+# No patient-level dedup was applied (pseudoreplication: 10 patients contribute 2 samples).
+# No multiplicity correction was applied. 4 tests reach nominal P < 0.05
+# (CD19, CD38, MKI67, DNTT); only 2 (CD38, CD19) were selected for display.
+survival_tests_run: 12
+survival_tests_displayed: 2
+survival_tests_nominal_sig: 4
+multiplicity_correction: NONE
+p_values_raw: {CD19: 0.02289, CD79A: 0.9698, CD38: <2.2e-16, BCL2: 0.6985, MKI67: <2.2e-16, CXCR4: 0.6544, TNFRSF17: 0.5373, SDC1: 0.1625, MEF2C: 0.7359, MS4A1: 0.7836, DNTT: 8.922e-11, IGLL1: 0.2687}
+displayed_gene_pvalues: {CD38: <2.2e-16, CD19: 0.02289}
+data_provenance: synthetic (see DATA_PROVENANCE.md); contains NO real patient data

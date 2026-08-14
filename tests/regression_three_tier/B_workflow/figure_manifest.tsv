@@ -1,0 +1,10 @@
+panel	script	source_data	statistical_unit	n	pairing	transformation	statistical_test	multiplicity_applicable	multiplicity_method	hypothesis_family	output_file
+a	render_B.R	source_data/synthetic_expression_targets.tsv;source_data/synthetic_survival.tsv	patient	763	unpaired	median split	log-rank (survdiff)	yes	BH-FDR	survival_screening_12_genes	figure.png
+b	render_B.R	source_data/synthetic_expression_targets.tsv;source_data/synthetic_survival.tsv	patient	763	unpaired	median split	log-rank (survdiff)	yes	BH-FDR	survival_screening_12_genes	figure.png
+c	render_B.R	source_data/synthetic_expression_targets.tsv;source_data/synthetic_survival.tsv	patient	763	unpaired	median split	none (descriptive)	no	NA	descriptive	figure.png
+d	render_B.R	source_data/synthetic_expression_targets.tsv	patient	763	not_applicable	none	none (descriptive)	no	NA	descriptive	figure.png
+e	render_B.R	source_data/synthetic_expression_targets.tsv	patient	763	not_applicable	z-score	none (descriptive)	no	NA	descriptive	figure.png
+f	render_B.R	source_data/synthetic_expression_targets.tsv;source_data/synthetic_survival.tsv	patient	763	not_applicable	none	none (descriptive, FDR evidence panel)	no	NA	descriptive	figure.png
+g	render_B.R	source_data/synthetic_expression_targets.tsv;source_data/synthetic_survival.tsv	patient	763	unpaired	median split	Cox proportional hazards	yes	BH-FDR	survival_screening_12_genes	figure.png
+h	render_B.R	source_data/synthetic_expression_targets.tsv;source_data/synthetic_survival.tsv	patient	763	unpaired	none	none (descriptive)	no	NA	descriptive	figure.png
+i	render_B.R	source_data/synthetic_survival.tsv	patient	763	not_applicable	none	none (descriptive)	no	NA	descriptive	figure.png

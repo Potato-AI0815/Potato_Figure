@@ -1,0 +1,2 @@
+panel	script	source_data	statistical_unit	n	pairing	transformation	statistical_test	multiplicity_applicable	multiplicity_method	hypothesis_family	output_file
+A	a.R	source_data.tsv	patient	10	paired	raw	Wilcoxon rank-sum	yes	BH-FDR	all_genes	figure.png

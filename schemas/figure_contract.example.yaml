@@ -1,0 +1,25 @@
+central_claim: State one bounded figure-level claim
+hero_evidence: panel_A
+supporting_evidence: panel_B,panel_C
+figure_grammar: paired_quantitative
+visual_profile: selected_profile_id
+authoring_profile: journal-final
+target_journal: unspecified
+reference_figure: none
+reading_order: A,B,C
+scientific_status: NOT_REVIEWED
+delivery_status: NOT_REVIEWED
+visual_status: NOT_REVIEWED
+requested_formats: pdf,svg,png,tiff
+final_width_mm: 180
+final_height_mm: 120
+raster_dpi: 300
+delivery_metadata_file: delivery_metadata.tsv
+session_metadata: sessionInfo.txt
+a4_proof_file: NA
+visual_qa_file: visual_qa.tsv
+coherence_mode: global_state
+global_state_file: global_figure_state.yaml
+global_coherence_qa_file: global_coherence_qa.tsv
+global_coherence_status: NOT_REVIEWED
+modality_adapter: generic
