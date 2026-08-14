@@ -83,6 +83,10 @@ jobs:
           echo "PROBE_EXIT=$?"
           python scripts/raster_measure.py metrics tests/regression_three_tier/B_workflow/figure.png --ink-threshold 20 --panel-count 2 2>&1
           echo "RASTER_EXIT=$?"
+          echo "=== R system2 passthrough ==="
+          Rscript --vanilla -e 'args <- c(shQuote("scripts/raster_measure.py"), "metrics", shQuote("tests/regression_three_tier/A_sloppy/figure.png"), "--ink-threshold", "20", "--panel-count", "1"); cmd <- paste(c(shQuote("python"), args), collapse = " "); cat("CMD:", cmd, "\n"); r <- system2("python", args, stdout = TRUE, stderr = TRUE); print(r); cat("EXIT:", attr(r, "status"), "\n")'
+          echo "=== R system2 no-prequote passthrough ==="
+          Rscript --vanilla -e 'args <- c("scripts/raster_measure.py", "metrics", "tests/regression_three_tier/A_sloppy/figure.png", "--ink-threshold", "20", "--panel-count", "1"); cmd <- paste(c(shQuote("python"), args), collapse = " "); cat("CMD:", cmd, "\n"); r <- system2("python", args, stdout = TRUE, stderr = TRUE); print(r); cat("EXIT:", attr(r, "status"), "\n")'
 
       - name: Dump suite logs (diagnostic)
         if: always()
