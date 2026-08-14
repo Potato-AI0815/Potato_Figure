@@ -72,6 +72,18 @@ jobs:
         shell: bash
         run: Rscript scripts/run_release_validation.R .
 
+      - name: Raster environment diagnostics
+        if: always()
+        working-directory: potato-figure-audit
+        shell: bash
+        run: |
+          which -a python python3 || true
+          echo "PATH=$PATH"
+          python -c "import PIL, numpy; print('PIL', PIL.__version__, 'numpy', numpy.__version__)" 2>&1
+          echo "PROBE_EXIT=$?"
+          python scripts/raster_measure.py metrics tests/regression_three_tier/B_workflow/figure.png --ink-threshold 20 --panel-count 2 2>&1
+          echo "RASTER_EXIT=$?"
+
       - name: Dump suite logs (diagnostic)
         if: always()
         working-directory: potato-figure-audit
