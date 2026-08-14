@@ -109,7 +109,11 @@ jobs:
           assert d.get("overall") == "PASS", d.get("overall")
           t = d["totals"]
           assert t["suites"] == 11 and t["suites_pass"] == 11, t
-          assert t["checks_total"] == 177 and t["checks_pass"] == 177, t
+          # Windows runs the full 177 checks; Linux skips the Windows-only
+          # 8.3 short-path test (M7u) and reports 176. Both must be fully
+          # passing with zero failures.
+          assert t["checks_total"] in (176, 177), t
+          assert t["checks_pass"] == t["checks_total"], t
           failed = [s["name"] for s in d["suites"] if s["status"] != "PASS"]
           assert not failed, failed
           print(f"RELEASE_GATE: version={d['version']} overall={d['overall']} "
