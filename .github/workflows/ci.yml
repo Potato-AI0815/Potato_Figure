@@ -72,6 +72,19 @@ jobs:
         shell: bash
         run: Rscript scripts/run_release_validation.R .
 
+      - name: Dump suite logs (diagnostic)
+        if: always()
+        working-directory: potato-figure-audit
+        shell: bash
+        run: |
+          for f in validation/run_logs/*.stdout.log; do
+            echo "===== $f ====="
+            tail -80 "$f"
+          done
+          for f in validation/run_logs/*.stderr.log; do
+            if [ -s "$f" ]; then echo "===== $f (stderr) ====="; tail -40 "$f"; fi
+          done
+
       - name: Machine-readable release gate on validation/latest_validation.json
         working-directory: potato-figure-audit
         shell: bash
