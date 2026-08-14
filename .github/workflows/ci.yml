@@ -85,6 +85,8 @@ jobs:
           echo "RASTER_EXIT=$?"
           echo "=== R system2 passthrough ==="
           Rscript --vanilla -e 'args <- c(shQuote("scripts/raster_measure.py"), "metrics", shQuote("tests/regression_three_tier/A_sloppy/figure.png"), "--ink-threshold", "20", "--panel-count", "1"); cmd <- paste(c(shQuote("python"), args), collapse = " "); cat("CMD:", cmd, "\n"); r <- system2("python", args, stdout = TRUE, stderr = TRUE); print(r); cat("EXIT:", attr(r, "status"), "\n")'
+          echo "=== python env inside R ==="
+          Rscript --vanilla -e 'cat("Sys.which python:", Sys.which("python"), "\n"); cat("Sys.which python3:", Sys.which("python3"), "\n"); cat("PATH:", Sys.getenv("PATH"), "\n"); cat("PYTHONPATH:", Sys.getenv("PYTHONPATH"), "\n"); cat("PYTHONHOME:", Sys.getenv("PYTHONHOME"), "\n"); cat("LD_LIBRARY_PATH:", Sys.getenv("LD_LIBRARY_PATH"), "\n"); r <- system2("python", c("-c", "import sys, os; print(\"EXE:\", sys.executable); print(\"SYS.PATH:\", sys.path); print(\"PPATH:\", os.environ.get(\"PYTHONPATH\"))"), stdout = TRUE, stderr = TRUE); print(r); cat("EXIT:", attr(r, "status"), "\n")'
           echo "=== R system2 no-prequote passthrough ==="
           Rscript --vanilla -e 'args <- c("scripts/raster_measure.py", "metrics", "tests/regression_three_tier/A_sloppy/figure.png", "--ink-threshold", "20", "--panel-count", "1"); cmd <- paste(c(shQuote("python"), args), collapse = " "); cat("CMD:", cmd, "\n"); r <- system2("python", args, stdout = TRUE, stderr = TRUE); print(r); cat("EXIT:", attr(r, "status"), "\n")'
 
