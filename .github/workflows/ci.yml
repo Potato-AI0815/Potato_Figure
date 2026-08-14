@@ -72,13 +72,15 @@ jobs:
         shell: bash
         run: |
           if [ "$RUNNER_OS" = "Linux" ]; then
-            # GitHub-hosted runner: r-lib/actions/setup-r prepends /opt/R/*/lib/R/lib
-            # to LD_LIBRARY_PATH, which shadows numpy's bundled BLAS and breaks
-            # `import numpy` in the raster subprocesses (exit 4). Typical user
-            # installs do not export R's lib dir globally, so restore that
-            # environment here. R itself keeps working via its own RPATH.
-            export LD_LIBRARY_PATH="$(echo "$LD_LIBRARY_PATH" | tr ':' '\n' | grep -v '^/opt/R/' | grep -v '^$' | paste -sd: -)"
-            echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+            # GitHub-hosted runner: the R subprocess resolves `python` to a
+            # build whose site.getsitepackages() points at Debian-style
+            # dist-packages (absent), so the interpreter starts WITHOUT any
+            # site package directory and `import numpy` fails for the raster
+            # subprocesses. Point PYTHONPATH at the real package location the
+            # shell-level python resolves, restoring normal resolution.
+            export PYTHONPATH="$(python -c 'import numpy, os; print(os.path.dirname(os.path.dirname(numpy.__file__)))')"
+            echo "PYTHONPATH=$PYTHONPATH"
+            echo "python: $(readlink -f "$(which python)")"
           fi
           Rscript scripts/run_release_validation.R .
 
