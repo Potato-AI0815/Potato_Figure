@@ -1,0 +1,15 @@
+# Statistical metadata for B version (potato workflow) — SYNTHETIC data
+analysis_version: 2.0-synthetic
+analysis_software: R survdiff / coxph + p.adjust(BH)
+n_patients: 763
+n_samples: 773
+statistical_unit: patient
+# All 12 survival tests run; BH-FDR correction applied; only q<0.05 shown as significant.
+survival_tests_run: 12
+survival_tests_displayed: 2
+survival_tests_fdr_sig: 3
+multiplicity_correction: BH-FDR
+q_values: {CD19: 0.05185, CD79A: 0.9648, CD38: <2.2e-16, BCL2: 0.9485, MKI67: <2.2e-16, CXCR4: 0.8992, TNFRSF17: 0.8406, SDC1: 0.2777, MEF2C: 0.9648, MS4A1: 0.8992, DNTT: 4.848e-10, IGLL1: 0.6759}
+displayed_gene_qvalues: {CD38: <2.2e-16, CD19:  0.05185}
+pseudoreplication_fixed: 10 duplicate samples removed (patient-level dedup)
+data_provenance: synthetic (see DATA_PROVENANCE.md); contains NO real patient data

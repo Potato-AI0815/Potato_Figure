@@ -1,0 +1,13 @@
+suite	script	exit_code	checks_pass	checks_total	status	seconds
+r1_regression	tests/run_tests.R	0	16	16	PASS	43.7
+r4_local	tests/run_r4_tests.R	0	4	4	PASS	6.7
+audit_core	tests/run_audit_tests.R	0	10	10	PASS	0.6
+color_system	tests/run_color_system_tests.R	0	14	14	PASS	13.8
+r6_gate_semantics	tests/run_r6_tests.R	0	24	24	PASS	0.4
+r6_real_regression	tests/run_r6_real_regression.R	0	19	19	PASS	49.6
+warning_semantics	tests/run_warning_semantics_tests.R	0	16	16	PASS	0.4
+raster_security	tests/run_raster_security_tests.R	0	7	7	PASS	7.6
+main_entry	tests/run_main_entry_tests.R	0	34	34	PASS	53.1
+visual_correction	tests/run_visual_correction_tests.R	0	10	10	PASS	0.4
+binding_serializer	tests/run_binding_serializer_tests.R	0	23	23	PASS	19.6
+validator	scripts/validate_skill_package.py	0	NA	NA	PASS	NA

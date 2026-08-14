@@ -1,0 +1,94 @@
+profile_id: potato-user-v1
+profile_role: evidence_backed_personal_visual_profile
+status: USER_PROFILE_R4
+scope:
+  publication: true
+  high_impact: true
+  demo: true
+principles:
+  dense_but_readable: true
+  low_nonfunctional_whitespace: true
+  figure_reads_as_one_object: true
+  equal_grid_default: false
+  grey_as_structural_ink: true
+canvas:
+  target_width_occupancy: 0.88
+  target_height_occupancy: 0.82
+  warning_blank_fraction: 0.15
+  outer_margin_mm: [3.0, 4.0]
+  panel_gap_mm: [2.5, 4.0]
+typography:
+  family_preferences: [Arial, Helvetica, Liberation Sans]
+  ordinary_text_pt: [8.0, 12.0]
+  axis_legend_pt: [8.0, 9.0]
+  panel_tag_pt: [10.0, 12.0]
+  manuscript_panel_tags_lowercase: true
+  below_8pt_requires_exception_review: true
+physical_consistency:
+  matched_bar_width_across_comparable_panels: true
+  matched_point_size_across_comparable_panels: true
+  matched_errorbar_weight_across_comparable_panels: true
+  sparse_panel_should_shrink_not_stretch: true
+layout:
+  asymmetric_evidence_driven: true
+  hero_area_requires_importance_and_density: true
+  align_strong_visual_edges: true
+  remove_redundant_panels_before_filling_grid: true
+colour:
+  background: "#FFFFFF"
+  structural_charcoal: "#3F4650"
+  structural_light: "#D9DEE3"
+  cool_primary: "#5B8CCB"
+  warm_secondary: "#F47F68"
+  signed_midpoint: "#F7F5F2"
+  rainbow_forbidden: true
+  neutral_data_ink_default: false
+embedding:
+  equal_coordinates: true
+  point_size_reference: [0.35, 0.42]
+  modest_axis_expansion_fraction: 0.07
+  direct_labels_preferred: true
+  internal_title_default: false
+  heavy_hull_outline: false
+  soft_component_islands_allowed: true
+heatmap:
+  compact_density_preferred: true
+  legend_subordinate: true
+  scale_semantics_must_be_declared: true
+visual_qa:
+  full_size_review_required: true
+  thumbnail_fraction: 0.28
+  dominant_blank_region: revise
+  grey_dominant_meaningful_data: revise
+  unequal_bar_physical_size: revise
+  collage_like_multi_panel: revise
+  repeated_legends: revise
+
+## v0.4.1: Color profile (PROFILE_PREFERENCE, not universal law)
+color_profile:
+  background: white
+  preferred_semantic_palette:
+    primary_blue: "#5B8CCB"
+    primary_coral: "#F47F68"
+  palette_philosophy:
+    - restrained
+    - semantic
+    - cross-panel-consistent
+    - high-contrast-but-not-garish
+  gray_roles:
+    - background
+    - reference
+    - connective
+    - uncertainty
+    - secondary
+  gray_should_not_dominate_primary_evidence: true
+  preferred_semantic_hues: [2, 4]
+  avoid:
+    - gray-dominant primary evidence
+    - rainbow categorical palettes without semantic need
+    - unrelated palette changes across panels
+    - excessive saturation
+    - excessive low-contrast pastel usage
+  heuristics:
+    max_neutral_ink_fraction: 0.70
+    heuristic_note: "PROFILE_HEURISTIC — not a universal scientific threshold; MAJOR requires primary-evidence-neutral + semantic-categories-exist + hierarchy-impaired"

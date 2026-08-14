@@ -1,0 +1,2 @@
+panel	script	source_data	statistical_unit	n	pairing	transformation	statistical_test	multiplicity_applicable	multiplicity_method	hypothesis_family	output_file
+A	plot.R	panel_A_source_data.tsv	patient	6	paired	none	Wilcoxon signed-rank	no	NA	primary_prespecified_comparison	figure.pdf

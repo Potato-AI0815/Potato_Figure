@@ -1,0 +1,23 @@
+# visual_correction_brief.schema.yaml — v0.4
+
+brief_version: "1.0"            # schema version
+figure_id: string               # figure identifier
+generated_at: datetime          # ISO timestamp
+visual_evidence_source: enum    # RASTER_REVIEW|VECTOR_REVIEW|VISION_MODEL_REVIEW|MANUAL_REVIEW|METADATA_ONLY|NONE
+image_review_status: enum       # PASS|NOT_EVALUABLE
+image_review_note: string
+overall_status: enum            # REVIEWED|METADATA_ONLY|OK|REVISE_REQUIRED
+top_issues:
+  - issue_id: string            # e.g. VIS-001
+    priority: enum              # HIGH|MEDIUM|LOW
+    severity: enum              # BLOCKER|MAJOR|MINOR|INFO
+    domain: string              # canvas_utilization|typography|colour_semantics|panel_redundancy|panel_area_proportionality|...
+    affected_panels: string     # comma-separated panel ids or "all"
+    diagnosis: string           # why it is wrong
+    why_it_matters: string      # impact on communication/science
+    recommended_action: string  # what to change
+    preserve_constraints: string  # what must not break (; separated)
+    global_recheck: string      # global properties to re-verify (; separated)
+    upstream_owner: enum        # FIGURE_GENERATOR|STATISTICS|ANALYSIS|MANUSCRIPT|MANUAL_REVIEW
+    confidence: enum            # HIGH|MEDIUM|LOW
+    evaluation_source: enum     # IMAGE_REVIEW|METADATA|PROFILE|MANUAL|NOT_EVALUABLE

@@ -1,0 +1,9 @@
+﻿
+> HISTORICAL VALIDATION SNAPSHOT — NOT CURRENT RELEASE EVIDENCE
+> Current release evidence: see RUNTIME_VALIDATION_REPORT.md (R6.1)
+suite	command	fixtures	result	coverage
+R1_REGRESSION	Rscript tests/run_tests.R .	16	16/16 PASS	pseudoreplication; multiplicity; pairing (paired rank-sum / unpaired signed-rank mismatch); missing source data; incomplete exports; A4 conditional; delivery metadata row; visual PASS/REVISE/FAIL interface; duplicate visual domain
+R4_REGRESSION	Rscript tests/run_r4_tests.R .	4	4/4 PASS	valid global state; open local change fail-closed; visual-profile violation; hero/panel-graph inconsistency
+AUDIT_TESTS	Rscript tests/run_audit_tests.R .	10	10/10 PASS	valid鈫扨ASS; pseudoreplication鈫払LOCKER; paired+unpaired鈫扚AIL; UMAP overclaim鈫払LOCKER; redundancy鈫扲EVISE; local fix global鈫払LOCKER; missing source data鈫扗ELIVERY REVISE; only PNG鈫扤OT_EVALUABLE; profile violation鈫扸ISUAL REVISE; all gates鈫扲EADY TRUE
+STATIC_VALIDATION	python scripts/static_validate.py .	96 checks	PASS (96/0/0)	required files; YAML sanity; TSV headers; SKILL paths; global-state fields; profile rules; core/adapter boundary; change-impact mechanism
+

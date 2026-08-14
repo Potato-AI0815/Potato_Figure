@@ -1,0 +1,21 @@
+﻿
+> HISTORICAL VALIDATION SNAPSHOT — NOT CURRENT RELEASE EVIDENCE
+> Current release evidence: see RUNTIME_VALIDATION_REPORT.md (R6.1)
+fixture	scientific_expected	delivery_expected	a4_expected	visual_expected	visual_interface_expected	publication_ready_expected	purpose
+valid_complete	PASS	PASS	PASS	PASS	READY	TRUE	Complete A4-working delivery with scientific and human visual review.
+pseudoreplication_cell_as_n	FAIL	PASS	PASS	PASS	READY	FALSE	Cell declared as inferential n must fail Scientific Audit.
+multiplicity_yes_missing_method	FAIL	PASS	PASS	PASS	READY	FALSE	Applicable multiplicity without a method must fail Scientific Audit.
+prespecified_paired_test_no_multiplicity	PASS	PASS	NOT_APPLICABLE	PASS	READY	TRUE	Prespecified paired comparison with multiplicity=no must pass without method.
+missing_source_data	FAIL	FAIL	PASS	PASS	READY	FALSE	Missing Source Data must fail both applicable audit layers.
+incomplete_exports	PASS	FAIL	PASS	PASS	READY	FALSE	Missing selected-profile formats must fail Delivery QA.
+non_A4_profile_without_A4_proof	PASS	PASS	NOT_APPLICABLE	PASS	READY	TRUE	Non-A4 profile must not require an A4 proof.
+A4_profile_missing_A4_proof	PASS	FAIL	FAIL	PASS	READY	FALSE	A4-working profile without proof must fail Delivery QA.
+visual_status_REVISE	PASS	PASS	NOT_APPLICABLE	REVISE	READY	FALSE	Valid science/delivery with contract and domains both REVISE.
+valid_unpaired_t_test	PASS	PASS	NOT_APPLICABLE	PASS	READY	TRUE	Unpaired t-test must not be falsely flagged by the paired substring.
+visual_contract_PASS_but_domain_REVISE	PASS	PASS	NOT_APPLICABLE	REVISE	READY	FALSE	Domain REVISE must override an incorrectly optimistic contract PASS.
+visual_contract_PASS_but_domain_FAIL	PASS	PASS	NOT_APPLICABLE	FAIL	READY	FALSE	Domain FAIL must override an incorrectly optimistic contract PASS.
+paired_rank_sum_mismatch	FAIL	PASS	NOT_APPLICABLE	PASS	READY	FALSE	Paired design with rank-sum test is an explicit contradiction.
+unpaired_signed_rank_mismatch	FAIL	PASS	NOT_APPLICABLE	PASS	READY	FALSE	Unpaired design with signed-rank test is an explicit contradiction.
+missing_delivery_metadata_row	PASS	FAIL	NOT_APPLICABLE	PASS	READY	FALSE	Every requested output format needs exactly one delivery metadata row.
+duplicate_visual_domain_conflict	PASS	PASS	NOT_APPLICABLE	NOT_REVIEWED	NOT_READY	FALSE	Duplicate required visual domain makes the interface not ready, regardless of conflicting statuses.
+

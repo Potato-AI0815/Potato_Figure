@@ -1,0 +1,31 @@
+central_claim: SDC1-related genes stratify prognosis in a synthetic multiple myeloma cohort
+hero_evidence: a,b
+supporting_evidence: c,d,e,f,g,h,i
+figure_grammar: paired_quantitative
+visual_profile: potato-user-v1
+authoring_profile: journal-final
+target_journal: unspecified
+reference_figure: none
+reading_order: a,b,c,d,e,f,g,h,i
+scientific_status: REVIEWED
+delivery_status: REVIEWED
+visual_status: REVIEWED
+requested_formats: pdf,svg,png,tiff
+final_width_mm: 183
+final_height_mm: 190
+raster_dpi: 300
+delivery_metadata_file: NA
+session_metadata: NA
+a4_proof_file: NA
+visual_qa_file: NA
+coherence_mode: global_state
+global_state_file: NA
+global_coherence_qa_file: NA
+global_coherence_status: NOT_REVIEWED
+modality_adapter: generic
+color_state.semantic_palette: "High=#F47F68; Low=#5B8CCB; NS=#A9C6E8"
+color_state.panel_grid: "4x2"
+color_review.primary_evidence_gray_dominant: FALSE
+color_review.gray_data_encoding: FALSE
+color_review.symbol_semantic_conflict: CENSORING_ONLY
+visual_evidence_source: RASTER_REVIEW

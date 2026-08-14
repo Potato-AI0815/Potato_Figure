@@ -1,0 +1,19 @@
+central_claim: "Treatment changes response at patient level"
+hero_evidence: "Panel A"
+supporting_evidence: "none"
+figure_grammar: "paired effect plot"
+visual_profile: potato-user-v1
+authoring_profile: not_selected
+target_journal: unspecified
+reference_figure: none
+reading_order: a,b
+scientific_status: PASS
+delivery_status: PASS
+global_state_file: global_figure_state.yaml
+visual_status: PASS
+requested_formats: png
+final_width_mm: 183
+final_height_mm: 120
+raster_dpi: 300
+delivery_metadata_file: delivery_metadata.tsv
+session_metadata: session_info.txt

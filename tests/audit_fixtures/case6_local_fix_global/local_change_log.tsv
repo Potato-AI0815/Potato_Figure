@@ -1,0 +1,2 @@
+change_id	timestamp	change_type	target_key	reason	impact_scope	required_rechecks	recheck_status	global_state_updated	closed	notes
+CHG1	2026-08-09T10:00:00+08:00	geometry	panel.a.height	Compress panel a	panel_a	geometry	recheck_status	no	no	Local fix not globally reviewed

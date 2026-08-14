@@ -1,0 +1,11 @@
+domain	status	notes
+scientific_spine_preserved	PASS	ok
+panel_role_consistency	PASS	ok
+reading_order	PASS	ok
+geometry_budget	PASS	ok
+canvas_utilization	PASS	ok
+physical_consistency	PASS	ok
+chromatic_coherence	PASS	ok
+typography_consistency	PASS	ok
+assembly_coherence	PASS	ok
+local_change_impact_closed	PASS	ok

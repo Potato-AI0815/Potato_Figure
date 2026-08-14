@@ -1,0 +1,14 @@
+change_type	required_rechecks	description
+geometry	geometry;assembly;reading_order;thumbnail;canvas_occupancy	Panel geometry can alter hierarchy, whitespace and final assembly.
+layout	geometry;assembly;reading_order;thumbnail;canvas_occupancy;legend	Layout edits propagate across the entire figure.
+assembly	assembly;panel_tags;shared_axes;legend;thumbnail;canvas_occupancy	Final assembly changes require whole-figure review.
+colour	colour_architecture;legend;accessibility;thumbnail	Panel colours must remain coherent at figure level.
+typography	typography;geometry;thumbnail;clipping	Font changes alter physical fit and hierarchy.
+legend	legend;geometry;canvas_occupancy;thumbnail	Legend changes alter space and shared semantics.
+scale	scale_compatibility;scientific_meaning;axis_occupancy;source_data	Scale changes may alter scientific interpretation and geometry.
+data	scientific_integrity;claim_evidence;source_data;geometry	Data changes can propagate into every evidence panel.
+statistics	scientific_integrity;claim_evidence;annotations;source_data	Statistical changes affect claims, annotations and provenance.
+claim	claim_evidence;panel_roles;reading_order;hero;caption_alignment	Claim changes can invalidate the evidence architecture.
+panel_role	panel_roles;reading_order;hero;geometry;assembly	Changing a panel role changes hierarchy and layout.
+source_data	source_data;scientific_integrity;delivery	Source-data changes require provenance and delivery checks.
+unknown	full_global_recheck	Unknown changes fail closed to a full global recheck.

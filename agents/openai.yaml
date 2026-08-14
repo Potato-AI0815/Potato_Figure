@@ -1,0 +1,4 @@
+interface:
+  display_name: "Potato Figure Audit"
+  short_description: "Audit scientific figures before publication"
+  default_prompt: "Use $potato-figure-audit to audit this biomedical figure package and produce a fail-closed readiness verdict."

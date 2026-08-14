@@ -1,0 +1,38 @@
+profile_id: potato_a4_working_v0.2
+profile_role: authoring_and_general_delivery
+canvas:
+  orientation: portrait
+  width_mm: 210
+  height_mm: 297
+  safe_margin_mm: 15
+  fill_page: false
+  placement: top_left
+crop:
+  enabled: true
+  mode: declared_content_bounds
+  safety_padding_mm: 2.5
+  scale_content_during_crop: false
+typography:
+  family: Arial
+  fallback_family: Liberation Sans
+  require_fallback_warning: true
+  figure_heading_pt: 16
+  panel_label_pt: 14
+  body_pt: 12
+  axis_title_pt: 12
+  axis_text_pt: 11
+  legend_pt: 10.5
+  secondary_annotation_pt: 10
+colour:
+  profile_source: selected_visual_profile
+  fallback_profile: POTATO_JOURNAL_ACCESSIBLE
+  space: RGB
+  forbid_rainbow: true
+  avoid_red_green_only: true
+  coloured_text: false
+export:
+  vector: [pdf, svg]
+  raster: [tiff, png]
+  raster_dpi: 600
+  a4_proof: true
+  cropped_delivery: true

@@ -1,0 +1,80 @@
+profile_id: high_impact_omics_user_approved_01
+profile_role: visual_art_direction
+status: USER_APPROVED
+applies_to:
+  - single_cell_multimodal_figure
+  - omics_landscape_plus_support
+  - trajectory_and_marker_composite
+does_not_apply_to:
+  - clinical_sparse_comparison
+  - microscopy_image_plate
+  - mechanism_schematic
+  - graphical_abstract
+reference:
+  text_removed: true
+  redistribute_asset: false
+canvas_preference:
+  authoring_profile: potato_a4_working_v0.2
+  orientation: landscape
+  fill_page: false
+  suggested_content_width_mm: 252
+  suggested_content_height_mm: 190
+  crop_after_layout: true
+layout:
+  anchor_mode: dual
+  anchor_left:    {x: 0.03, y: 0.01, width: 0.45, height: 0.49}
+  anchor_right:   {x: 0.54, y: 0.01, width: 0.43, height: 0.49}
+  support_left:   {x: 0.00, y: 0.53, width: 0.34, height: 0.42}
+  support_middle: {x: 0.38, y: 0.54, width: 0.25, height: 0.22}
+  support_right:  {x: 0.66, y: 0.54, width: 0.31, height: 0.22}
+  closure_wide:   {x: 0.39, y: 0.79, width: 0.58, height: 0.16}
+typography:
+  family: Arial
+  panel_label_pt: 16
+  body_pt: 12
+  axis_title_pt: 11.5
+  axis_text_pt: 10.5
+  legend_pt: 10.5
+  coloured_text: false
+palette:
+  id: POTATO_HIGH_IMPACT_OMICS
+  categories:
+    lavender: "#B8A6D9"
+    warm_yellow: "#E6C76A"
+    soft_teal: "#55B8B2"
+    powder_blue: "#8FB6D8"
+    soft_salmon: "#E49A8F"
+    mist_grey: "#D5D8DC"
+  lines:
+    deep_blue: "#4F719D"
+    salmon: "#D97B6D"
+    neutral_dark: "#4D5663"
+  dotplot_sequential: ["#F2EDF7", "#D9C6E8", "#B891D0", "#8B4FB3", "#6A1B9A"]
+embedding:
+  point_size_mm: [0.20, 0.42]
+  background_alpha: [0.18, 0.32]
+  foreground_alpha: [0.55, 0.78]
+  rasterize_points: true
+  vectorize_labels_and_paths: true
+  corner_axis_glyph: true
+  boxed_axes: false
+support_panels:
+  violin:
+    narrow_geometry: true
+    internal_box: true
+    outline_pt: 0.5
+  trend:
+    heavy_grid: false
+    reference_line: quiet
+  dotplot:
+    aspect: wide_shallow
+    size_encoding: percent_expressed
+    colour_encoding: average_expression
+    legend_role: subordinate
+visual_qa:
+  real_render_inspection_required: true
+  thumbnail_fraction: 0.28
+  equal_panel_grid: fail
+  bottom_support_competes_with_anchor: revise
+  saturated_palette: revise
+  large_detached_legend: revise
