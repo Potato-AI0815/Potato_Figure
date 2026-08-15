@@ -30,6 +30,24 @@ figures that already exist and tells you whether they are scientifically
 sound, internally consistent, visually usable, reproducible, and ready for
 manuscript submission.
 
+## Install as an Agent Skill
+
+```bash
+# Inspect the Skill exposed by this repository
+npx skills add Potato-AI0815/Potato_Figure --list
+
+# Install Potato Figure Audit
+npx skills add Potato-AI0815/Potato_Figure \
+  --skill potato-figure-audit \
+  --global --yes --copy
+```
+
+Repository name: `Potato_Figure`  
+Skill name: `potato-figure-audit`
+
+Then ask your compatible Agent to use `potato-figure-audit`, or invoke the
+included R entry point directly as shown below.
+
 ## Quick start
 
 ```bash
